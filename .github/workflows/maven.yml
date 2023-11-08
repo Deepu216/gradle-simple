@@ -36,3 +36,10 @@ jobs:
         with:
           name: my-java-app
           path: build/libs/*.jar
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: my-java-app
+
+      # You can perform further actions with the downloaded artifacts here.
