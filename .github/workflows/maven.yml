@@ -1,4 +1,4 @@
-name: "Validate Gradle Wrapper"
+name: "Build and Validate Gradle Project"
 on:
   push:
     branches:
@@ -8,9 +8,23 @@ on:
       - master
 
 jobs:
-  validation:
-    name: "Validation"
+  build:
+    name: "Build JAR"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: gradle/wrapper-validation-action@v1
+      - name: Checkout Code
+        uses: actions/checkout@v2.3.4
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'  # Adjust the Java version as needed
+
+      - name: Build JAR
+        run: ./gradlew build  # Modify this command if your Gradle build script has a different name
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-java-app
+          path: build/libs/*.jar
