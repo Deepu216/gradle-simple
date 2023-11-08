@@ -19,6 +19,14 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'  # Adjust the Java version as needed
+          distribution: 'adopt'  # Specify the distribution, e.g., 'adopt', 'adopt-hotspot', 'adopt-openj9', 'adopt-corretto', etc.
+          architecture: x64
+          check-latest: false
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: ${{ secrets.GITHUB_TOKEN }}
+          overwrite-settings: true
+          job-status: success
 
       - name: Build JAR
         run: ./gradlew build  # Modify this command if your Gradle build script has a different name
